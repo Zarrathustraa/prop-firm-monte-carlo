@@ -1,5 +1,4 @@
-import { StrategyParams, SimulationSettings, PathResult, SimulationResults, PayoutCalculation } from '@/types/simulation';
-import { AccountSize, PropFirmPlan } from '@/types/firm';
+import { StrategyParams, SimulationSettings, PathResult, SimulationResults, AccountSize, PropFirmPlan } from '@/types';
 import { POINT_VALUE } from './firms';
 
 export class MonteCarloEngine {

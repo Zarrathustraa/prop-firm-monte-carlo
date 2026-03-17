@@ -11,18 +11,18 @@ export default function FirmSelector() {
     selectedAccountSize,
     setFirmSelection
   } = useAppStore();
-
+  
   const [firmDropdownOpen, setFirmDropdownOpen] = useState(false);
   const [planDropdownOpen, setPlanDropdownOpen] = useState(false);
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
-
+  
   const selectedFirmData = selectedFirm ? getFirmById(selectedFirm) : null;
   const selectedPlanData = selectedFirm && selectedPlan ? 
     getPlanById(selectedFirm, selectedPlan) : null;
   const selectedAccountData = selectedPlanData?.account_sizes.find(
     a => a.size === selectedAccountSize
   );
-
+  
   const handleFirmChange = (firmId: string) => {
     const firm = getFirmById(firmId);
     if (firm && firm.plans.length > 0) {
@@ -32,7 +32,7 @@ export default function FirmSelector() {
     }
     setFirmDropdownOpen(false);
   };
-
+  
   const handlePlanChange = (planId: string) => {
     if (!selectedFirm) return;
     const plan = getPlanById(selectedFirm, planId);
@@ -42,18 +42,18 @@ export default function FirmSelector() {
     }
     setPlanDropdownOpen(false);
   };
-
+  
   const handleAccountChange = (size: number) => {
     if (selectedFirm && selectedPlan) {
       setFirmSelection(selectedFirm, selectedPlan, size);
     }
     setAccountDropdownOpen(false);
   };
-
+  
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-gray-900">Firm Selection</h3>
-
+      
       {/* Firm Dropdown */}
       <div className="relative">
         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -68,7 +68,7 @@ export default function FirmSelector() {
           </span>
           <ChevronDown className="h-4 w-4 text-gray-400" />
         </button>
-
+        
         {firmDropdownOpen && (
           <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
             {PROP_FIRMS.map((firm) => (
@@ -83,7 +83,7 @@ export default function FirmSelector() {
           </div>
         )}
       </div>
-
+      
       {/* Plan Dropdown */}
       {selectedFirmData && (
         <div className="relative">
@@ -99,7 +99,7 @@ export default function FirmSelector() {
             </span>
             <ChevronDown className="h-4 w-4 text-gray-400" />
           </button>
-
+          
           {planDropdownOpen && (
             <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
               {selectedFirmData.plans.map((plan) => (
@@ -115,7 +115,7 @@ export default function FirmSelector() {
           )}
         </div>
       )}
-
+      
       {/* Account Size Dropdown */}
       {selectedPlanData && (
         <div className="relative">
@@ -131,7 +131,7 @@ export default function FirmSelector() {
             </span>
             <ChevronDown className="h-4 w-4 text-gray-400" />
           </button>
-
+          
           {accountDropdownOpen && (
             <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
               {selectedPlanData.account_sizes.map((account) => (
@@ -147,7 +147,7 @@ export default function FirmSelector() {
           )}
         </div>
       )}
-
+      
       {/* Account Details */}
       {selectedAccountData && selectedPlanData && (
         <div className="bg-gray-50 rounded-lg p-4 mt-4">
@@ -180,7 +180,7 @@ export default function FirmSelector() {
               <span className="ml-2 font-medium">{(selectedPlanData.payout_split * 100).toFixed(0)}%</span>
             </div>
           </div>
-
+          
           {selectedAccountData.eval_fee && (
             <div className="mt-3 pt-3 border-t">
               <div className="flex justify-between text-sm">

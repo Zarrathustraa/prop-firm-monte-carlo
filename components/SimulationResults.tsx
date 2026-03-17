@@ -1,5 +1,4 @@
-import type { SimulationResults } from '@/types/simulation';
-import { AccountSize, PropFirmPlan } from '@/types/firm';
+import type { SimulationResults, AccountSize, PropFirmPlan } from '@/types';
 import MetricCard from './MetricCard';
 import EquityCurveChart from './EquityCurveChart';
 import { formatCurrency, formatPercentage, formatNumber } from '@/lib/utils';

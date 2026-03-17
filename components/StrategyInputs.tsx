@@ -10,17 +10,17 @@ export default function StrategyInputs() {
   const [riskMgmtOpen, setRiskMgmtOpen] = useState(false);
   const [tradeMgmtOpen, setTradeMgmtOpen] = useState(false);
   const [dailyRulesOpen, setDailyRulesOpen] = useState(false);
-
+  
   const derivedStats = calculateDerivedStats(strategy);
-
+  
   const handleInputChange = (field: keyof typeof strategy, value: number | boolean) => {
     updateStrategy({ [field]: value });
   };
-
+  
   return (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold text-gray-900">Strategy Parameters</h3>
-
+      
       {/* Core Strategy Inputs */}
       <div className="grid grid-cols-2 gap-4">
         <div>
@@ -42,7 +42,7 @@ export default function StrategyInputs() {
             <span>90%</span>
           </div>
         </div>
-
+        
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Avg Win (points)
@@ -64,7 +64,7 @@ export default function StrategyInputs() {
             <span>200 pt</span>
           </div>
         </div>
-
+        
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Avg Loss (points)
@@ -86,7 +86,7 @@ export default function StrategyInputs() {
             <span>200 pt</span>
           </div>
         </div>
-
+        
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Trades/Day
@@ -107,7 +107,7 @@ export default function StrategyInputs() {
           </div>
         </div>
       </div>
-
+      
       {/* Derived Statistics */}
       <div className="bg-blue-50 rounded-lg p-4">
         <h4 className="font-medium text-gray-900 mb-3 flex items-center">
@@ -141,7 +141,7 @@ export default function StrategyInputs() {
           </div>
         </div>
       </div>
-
+      
       {/* Advanced Settings */}
       <div className="border rounded-lg p-4">
         <button
@@ -155,7 +155,7 @@ export default function StrategyInputs() {
             <ChevronRight className="h-4 w-4 text-gray-500" />
           )}
         </button>
-
+        
         {advancedOpen && (
           <div className="mt-4 space-y-4">
             <div className="grid grid-cols-2 gap-4">
@@ -176,7 +176,7 @@ export default function StrategyInputs() {
                   {strategy.win_std_dev} pts
                 </div>
               </div>
-
+              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Loss Std Dev (points)
@@ -194,7 +194,7 @@ export default function StrategyInputs() {
                   {strategy.loss_std_dev} pts
                 </div>
               </div>
-
+              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Commission ($)
@@ -209,7 +209,7 @@ export default function StrategyInputs() {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-trading-blue focus:border-trading-blue"
                 />
               </div>
-
+              
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Slippage (points)
@@ -228,7 +228,7 @@ export default function StrategyInputs() {
           </div>
         )}
       </div>
-
+      
       {/* Preset Strategies */}
       <div className="border rounded-lg p-4">
         <h4 className="font-medium text-gray-900 mb-3">Quick Presets</h4>

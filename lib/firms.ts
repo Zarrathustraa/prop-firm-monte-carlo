@@ -1,4 +1,4 @@
-import { PropFirm } from '@/types/firm';
+import type { PropFirm } from '@/types';
 
 export const PROP_FIRMS: PropFirm[] = [
   {
@@ -26,12 +26,7 @@ export const PROP_FIRMS: PropFirm[] = [
           max_contracts: 4,
           eval_fee: 29,
           min_daily_profit: 100,
-          payout_ladder: [1000, 1000, 1000, 1000, 1000, 1000],
-          scaling_tiers: [
-            { profit_level: [0, 999], max_contracts: 1, daily_loss_limit: 500 },
-            { profit_level: [1000, 1999], max_contracts: 2, daily_loss_limit: 500 },
-            { profit_level: [2000, Infinity], max_contracts: 2, daily_loss_limit: 1250 }
-          ]
+          payout_ladder: [1000, 1000, 1000, 1000, 1000, 1000]
         },
         {
           size: 50000,
@@ -41,13 +36,7 @@ export const PROP_FIRMS: PropFirm[] = [
           max_contracts: 6,
           eval_fee: 33,
           min_daily_profit: 250,
-          payout_ladder: [1500, 1500, 2000, 2500, 2500, 3000],
-          scaling_tiers: [
-            { profit_level: [0, 1499], max_contracts: 2, daily_loss_limit: 1000 },
-            { profit_level: [1500, 2999], max_contracts: 3, daily_loss_limit: 1000 },
-            { profit_level: [3000, 5999], max_contracts: 4, daily_loss_limit: 2000 },
-            { profit_level: [6000, 999999], max_contracts: 4, daily_loss_limit: 3000 }
-          ]
+          payout_ladder: [1500, 1500, 2000, 2500, 2500, 3000]
         },
         {
           size: 100000,

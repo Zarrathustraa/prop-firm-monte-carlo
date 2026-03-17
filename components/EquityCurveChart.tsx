@@ -1,5 +1,4 @@
-import type { SimulationResults } from '@/types/simulation';
-import { AccountSize } from '@/types/firm';
+import type { SimulationResults, AccountSize } from '@/types';
 import {
   LineChart,
   Line,
