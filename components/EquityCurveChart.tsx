@@ -1,4 +1,4 @@
-import { SimulationResults } from '@/types/simulation';
+import type { SimulationResults } from '@/types/simulation';
 import { AccountSize } from '@/types/firm';
 import {
   LineChart,
@@ -31,7 +31,7 @@ export default function EquityCurveChart({ results, accountSize }: EquityCurveCh
     profitTarget: accountSize.size + accountSize.profit_target,
     drawdownFloor: accountSize.size - accountSize.trailing_drawdown
   }));
-
+  
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -59,7 +59,7 @@ export default function EquityCurveChart({ results, accountSize }: EquityCurveCh
     }
     return null;
   };
-
+  
   return (
     <div className="w-full h-96 bg-white rounded-lg border p-4">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">
@@ -79,7 +79,7 @@ export default function EquityCurveChart({ results, accountSize }: EquityCurveCh
             fontSize={12}
             tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
           />
-
+          
           {/* Reference lines */}
           <ReferenceLine 
             y={accountSize.size + accountSize.profit_target} 
@@ -95,7 +95,7 @@ export default function EquityCurveChart({ results, accountSize }: EquityCurveCh
             strokeDasharray="5 5"
             label={{ value: "Drawdown Floor", position: "left" }}
           />
-
+          
           {/* Percentile bands */}
           <Area
             type="monotone"
@@ -129,7 +129,7 @@ export default function EquityCurveChart({ results, accountSize }: EquityCurveCh
             fill="#FECACA"
             fillOpacity={0.3}
           />
-
+          
           {/* Median line */}
           <Line
             type="monotone"
@@ -138,11 +138,11 @@ export default function EquityCurveChart({ results, accountSize }: EquityCurveCh
             strokeWidth={2}
             dot={false}
           />
-
+          
           <Tooltip content={<CustomTooltip />} />
         </AreaChart>
       </ResponsiveContainer>
-
+      
       <div className="flex items-center justify-center space-x-6 mt-4 text-xs">
         <div className="flex items-center space-x-2">
           <div className="w-3 h-3 bg-green-200 rounded"></div>
