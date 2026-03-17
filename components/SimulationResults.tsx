@@ -1,4 +1,4 @@
-import { SimulationResults } from '@/types/simulation';
+import type { SimulationResults } from '@/types/simulation';
 import { AccountSize, PropFirmPlan } from '@/types/firm';
 import MetricCard from './MetricCard';
 import EquityCurveChart from './EquityCurveChart';
@@ -13,19 +13,19 @@ import {
   BarChart3
 } from 'lucide-react';
 
-interface SimulationResultsProps {
+interface SimulationResultsDisplayProps {
   results: SimulationResults;
   account: AccountSize;
   firmPlan: PropFirmPlan;
 }
 
-export default function SimulationResults({ results, account, firmPlan }: SimulationResultsProps) {
+export default function SimulationResultsDisplay({ results, account, firmPlan }: SimulationResultsDisplayProps) {
   const getTrendForRate = (rate: number): 'positive' | 'negative' | 'neutral' => {
     if (rate > 60) return 'positive';
     if (rate < 40) return 'negative';
     return 'neutral';
   };
-
+  
   return (
     <div className="space-y-6">
       {/* Primary Metrics Row */}
@@ -38,7 +38,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           trend={getTrendForRate(results.pass_rate)}
           tooltip="Percentage of simulation paths that hit the profit target before hitting the drawdown floor"
         />
-
+        
         <MetricCard
           title="Blow Rate"
           value={formatPercentage(results.blow_rate / 100)}
@@ -47,7 +47,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           trend={results.blow_rate > 40 ? 'negative' : results.blow_rate < 20 ? 'positive' : 'neutral'}
           tooltip="Percentage of paths that hit the trailing drawdown floor"
         />
-
+        
         <MetricCard
           title="DLL Hit Rate"
           value={formatPercentage(results.dll_hit_rate / 100)}
@@ -56,7 +56,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           trend={results.dll_hit_rate > 30 ? 'negative' : results.dll_hit_rate < 10 ? 'positive' : 'neutral'}
           tooltip="Percentage of paths where the daily loss limit was triggered at least once"
         />
-
+        
         <MetricCard
           title="Median Trades to Pass"
           value={formatNumber(results.median_trades_to_pass, 0)}
@@ -66,7 +66,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           tooltip="Typical number of trades needed to reach the profit target (among passing paths)"
         />
       </div>
-
+      
       {/* Financial Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <MetricCard
@@ -77,7 +77,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           trend={results.expected_payout > 0 ? 'positive' : 'negative'}
           tooltip="Average payout amount across all simulation paths (including zeros for failed paths)"
         />
-
+        
         <MetricCard
           title="Monthly Net Income"
           value={formatCurrency(results.monthly_net_income)}
@@ -86,7 +86,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           trend={results.monthly_net_income > 0 ? 'positive' : 'negative'}
           tooltip="Expected monthly income after fees and reset costs"
         />
-
+        
         <MetricCard
           title="Total Monthly Fees"
           value={formatCurrency(results.total_monthly_fees)}
@@ -96,7 +96,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           tooltip="Monthly subscription fees plus amortized activation fees plus expected reset costs"
         />
       </div>
-
+      
       {/* Insight Box */}
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <h4 className="font-medium text-blue-900 mb-2">Key Insights</h4>
@@ -116,10 +116,10 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           )}
         </div>
       </div>
-
+      
       {/* Equity Curve Chart */}
       <EquityCurveChart results={results} accountSize={account} />
-
+      
       {/* Risk Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <MetricCard
@@ -130,7 +130,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           trend="neutral"
           tooltip="Median peak-to-trough drawdown across all simulation paths"
         />
-
+        
         <MetricCard
           title="P95 Max Drawdown"
           value={formatCurrency(results.p95_max_drawdown)}
@@ -139,7 +139,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           trend="negative"
           tooltip="95th percentile worst-case drawdown (only 5% of paths are worse)"
         />
-
+        
         <MetricCard
           title="Recovery Factor"
           value={results.recovery_factor.toFixed(2)}
@@ -149,7 +149,7 @@ export default function SimulationResults({ results, account, firmPlan }: Simula
           tooltip="Ratio of expected net profit to maximum drawdown for passing paths"
         />
       </div>
-
+      
       {/* Distribution Summary */}
       <div className="bg-gray-50 rounded-lg p-4">
         <h4 className="font-medium text-gray-900 mb-3">Path Outcomes Summary</h4>

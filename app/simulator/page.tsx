@@ -7,7 +7,7 @@ import { getFirmById, getPlanById, getAccountSize } from '@/lib/firms';
 import Layout from '@/components/Layout';
 import FirmSelector from '@/components/FirmSelector';
 import StrategyInputs from '@/components/StrategyInputs';
-import SimulationResults from '@/components/SimulationResults';
+import SimulationResultsDisplay from '@/components/SimulationResults';
 import { Play, Loader2 } from 'lucide-react';
 
 export default function SimulatorPage() {
@@ -21,27 +21,27 @@ export default function SimulatorPage() {
     setSimulationResults,
     setIsSimulating
   } = useAppStore();
-
+  
   const [simulationSettings] = useState({
     n_paths: 2000,
     n_trades_per_path: 500,
     live_trailing_drawdown: false
   });
-
+  
   const selectedFirmData = selectedFirm ? getFirmById(selectedFirm) : null;
   const selectedPlanData = selectedFirm && selectedPlan ? 
     getPlanById(selectedFirm, selectedPlan) : null;
   const selectedAccountData = selectedFirm && selectedPlan && selectedAccountSize ? 
     getAccountSize(selectedFirm, selectedPlan, selectedAccountSize) : null;
-
+  
   const canRunSimulation = selectedFirmData && selectedPlanData && selectedAccountData;
-
+  
   const runSimulation = async () => {
     if (!canRunSimulation) return;
-
+    
     setIsSimulating(true);
     setSimulationResults(null);
-
+    
     try {
       // Run simulation in a setTimeout to allow UI to update
       setTimeout(() => {
@@ -51,7 +51,7 @@ export default function SimulatorPage() {
           selectedPlanData,
           simulationSettings
         );
-
+        
         setSimulationResults(results);
         setIsSimulating(false);
       }, 100);
@@ -60,7 +60,7 @@ export default function SimulatorPage() {
       setIsSimulating(false);
     }
   };
-
+  
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
@@ -70,13 +70,13 @@ export default function SimulatorPage() {
             Professional-grade simulation tool for prop trading firm evaluations
           </p>
         </div>
-
+        
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Sidebar - Controls */}
           <div className="lg:col-span-1 space-y-6">
             <FirmSelector />
             <StrategyInputs />
-
+            
             {/* Run Simulation Button */}
             <div className="pt-6">
               <button
@@ -96,13 +96,13 @@ export default function SimulatorPage() {
                   </>
                 )}
               </button>
-
+              
               {!canRunSimulation && (
                 <p className="mt-2 text-sm text-gray-500">
                   Select a firm and account size to run simulation
                 </p>
               )}
-
+              
               <div className="mt-3 text-xs text-gray-500">
                 <div>Paths: {simulationSettings.n_paths.toLocaleString()}</div>
                 <div>Max trades per path: {simulationSettings.n_trades_per_path}</div>
@@ -110,7 +110,7 @@ export default function SimulatorPage() {
               </div>
             </div>
           </div>
-
+          
           {/* Main Content - Results */}
           <div className="lg:col-span-3">
             {isSimulating && (
@@ -126,7 +126,7 @@ export default function SimulatorPage() {
                 </div>
               </div>
             )}
-
+            
             {!isSimulating && !simulationResults && (
               <div className="bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 p-12 text-center">
                 <Play className="h-12 w-12 text-gray-400 mx-auto mb-4" />
@@ -138,9 +138,9 @@ export default function SimulatorPage() {
                 </p>
               </div>
             )}
-
+            
             {simulationResults && selectedAccountData && selectedPlanData && (
-              <SimulationResults 
+              <SimulationResultsDisplay 
                 results={simulationResults}
                 account={selectedAccountData}
                 firmPlan={selectedPlanData}
