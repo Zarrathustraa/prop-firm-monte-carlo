@@ -1,3 +1,5 @@
+import type { StrategyParams, SimulationResults } from './simulation';
+
 export interface AppState {
   strategy: StrategyParams;
   selected_firm: string | null;
